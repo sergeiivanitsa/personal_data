@@ -1,27 +1,15 @@
 from pdf2image import convert_from_path
 
-import pathlib
 from pathlib import Path  
 import shutil
 
-dir_path = pathlib.Path.cwd()
+def makejpg(id):
+	path_fakeoutput = Path("outputs", "fakeoutputs", f"{id}.pdf")
+	#path_fakeoutput=r'C:\Dev\personal_data\personal_data\outputs\fakeoutputs\2.pdf'
 
-path_fakeoutput = Path("..\outputs", "fakeoutputs", "33.pdf")
+	images = convert_from_path(path_fakeoutput, 500, poppler_path=r'C:\Program Files\poppler-0.68.0_x86\poppler-0.68.0\bin')
 
-# Store Pdf with convert_from_path function
-images = convert_from_path(path_fakeoutput, 500, poppler_path=r'C:\Program Files\poppler-0.68.0_x86\poppler-0.68.0\bin')
-
-#images.save(path_imagepath, 'page' + '.jpg', 'JPEG')
-
-for i in range(len(images)):
-#	Save pages as images in the pdf
-	#path_imagepath = Path("..\outputs", "imgoutputs", str(images[i].save('page'+ str(i) +'.jpg', 'JPEG')))
-	images[i].save('page'+ str(i) +'.jpg', 'JPEG')
-	source = 'page0.jpg'
-	destination = Path("..\outputs", "imgoutputs")
-	path = shutil.move(source, destination)
-	#with open(images[i], 'w') as f:
-	#	f.write('test')
-
-#with open(images, 'w') as f:
-#    f.write('test')
+	for i in range(len(images)):
+		images[i].save(f'{id}' + '.jpg', 'JPEG')
+		#images[i].save('2' + '.jpg', 'JPEG')
+		shutil.move(f'{id}.jpg', Path("media", "images"))

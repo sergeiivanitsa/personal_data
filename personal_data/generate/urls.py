@@ -8,5 +8,5 @@ urlpatterns = [
     # path('', views.index),
     # path('generate/', views.generate),
     path('generate/', views.statement_generate, name='new_generate'),
-    path('thankyou/', views.success)
-] 
+    path('success/', views.success)
+]

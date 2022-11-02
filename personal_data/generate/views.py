@@ -2,11 +2,16 @@ from django.views.generic.edit import CreateView
 from .forms import GenerateForm
 from django.shortcuts import redirect, render
 from pathlib import Path
+import time
+from django.template.response import TemplateResponse
 
 from .makestatement import makestatement, fakestatement
+from .pdftojpg import makejpg
 from .models import Statement
 
 from django.http import FileResponse
+
+from .payment import paylink
 
 
 def statement_generate(request):
@@ -46,12 +51,24 @@ def statement_generate(request):
                           pass_number, division_code, issue_date, whom_issued, address, bank_name, 
                           bank_data, contract_date, contract_number, id)
 
-           # return FileResponse(open('output.pdf', 'rb'), as_attachment=True)
-            return render(request, 'generate/thankyou.html')
+            makejpg(id)
+
+            #paymentlink = paylink(id) http://localhost:8000/
+
+            paymentlink = 'https://ya.ru/'
+
+
+
+            print(paymentlink)
+
+            data = {"url" : f'/media/images/{id}.jpg', 
+                    "paymentlink" : f'{paymentlink}'}
+
+            return TemplateResponse(request, 'generate/success.html', context=data)
         return render(request, 'generate/generate.html', {'form': form})
     return render(request, 'generate/generate.html', {'form': form})
 
 
 def success(request):
-    template = 'generate/thankyou.html'
+    template = 'generate/success.html'
     return render(request, template)
