@@ -1,0 +1,116 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %}
+Форма заявления
+{% endblock %}
+
+{% block content %}
+
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-8">
+      <br>
+      <p class="h2">
+        Заполните форму и получите готовое заявление
+      </p>
+    </div>
+      <div class="col-4">
+    </div>
+  </div>
+</div>
+<div class="container">
+  <div class="row justify-content-left">
+    <div class="col-md-6 p-5">
+      <div class="mb-3">
+        <div class="card">
+          <div class="card-body"> 
+            <form method="post" enctype="multipart/form-data" action="{% url 'generate:new_generate' %}" class="row g-3 needs-validation" novalidate>
+              {% csrf_token %}
+              <div class="form-group">
+                <div class="form-group row my-3 p-3">
+              <p>
+                <span>Имя</span>
+                  {{ form.firstname|as_crispy_field }}
+              </p>
+              <p>
+                <span>Фамилия</span>
+                  {{ form.lastname|as_crispy_field }} 
+              </p>
+              <p>
+                <span>Отчество</span>
+                  {{ form.middlename|as_crispy_field }}
+              </p>
+              <br>
+              <hr>
+              <br>
+              <p>
+                <span>Дата рождения</span>
+                  {{ form.birth_date|as_crispy_field }} 
+              </p>
+              <p>
+                <span>Место рождения</span>
+                  {{ form.birth_place|as_crispy_field }}
+              </p>
+              <p>
+                <span>Серия паспорта</span>
+                  {{ form.pass_serie|as_crispy_field }} 
+              </p>
+              <p>
+                <span>Номер паспорта</span>
+                  {{ form.pass_number|as_crispy_field }}
+              </p>
+              <p>
+                <span>Код подраздления</span>
+                  {{ form.division_code|as_crispy_field }} 
+              </p>
+              <p>
+                <span>Дата выдачи</span>
+                  {{ form.issue_date|as_crispy_field }} 
+              </p>
+              <p>
+                <span>Кем выдан</span>
+                  {{ form.whom_issued|as_crispy_field }}
+              </p>
+              <p>
+                <span>Адрес места жительства (фактического)</span>
+                  {{ form.address|as_crispy_field }} 
+              </p>
+              <br>
+              <hr>
+              <br>
+              <p>
+                <span>Наименование банка</span>
+                  {{ form.bank_name|as_crispy_field }}
+              </p>
+              <p>
+                <span>Данные банка</span>
+                  {{ form.bank_data|as_crispy_field }} 
+              </p>
+              <p>
+                <span>Номер кредитного договора</span>
+                  {{ form.contract_number|as_crispy_field }}
+              </p>
+              <p>
+                <span>Дата заключения договора кредитования</span>
+                  {{ form.contract_date|as_crispy_field }} 
+              </p>
+              {% for field in form %}
+                {% for error in field.errors %}
+                  <div class="alert alert-danger">
+                    <strong>{{ error|escape }}</strong>
+                  </div>
+                {% endfor %}
+              {% endfor %}
+              <br>
+              <div class="d-grid gap-2 col-8 mx-auto">
+                <input type="submit" class="btn btn-primary btn-lg" value="СГЕНЕРИРОВАТЬ ЗАЯВЛЕНИЕ">
+              </div>
+        </form>      
+      </body>
+      </body>        
+    </div>
+  </div>
+</div>
+</div>
+{% endblock %}

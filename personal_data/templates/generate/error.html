@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <title>
+     {% block title %}
+       Шляпа 
+     {% endblock %}
+    </title>
+  </head>
+  <body>   
+    <header>
+    {% block header %}
+      Шляпа
+    {% endblock %}
+    </header>
+    <main>
+      {% block content %}
+      <p>
+         Шляпа
+      </p>
+      {% endblock %}
+    </main>
+    <footer class="page-footer font-small blue border-top">
+      Шляпа
+    </footer>
+  </body>
+</html> 

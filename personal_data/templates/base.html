@@ -1,0 +1,52 @@
+<!-- templates/base.html -->
+<!DOCTYPE html> 
+<html lang="ru">          
+  <head> 
+    <title>
+        {% block title %}
+           Имя страницы
+        {% endblock %}
+    </title>
+    <meta charset="utf-8">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="msapplication-TileColor" content="#000">
+    <meta name="theme-color" content="#ffffff">      
+  </head>
+  <body>       
+    <header>
+      {% include 'includes/header.html' %}
+    </header>
+    <main>
+      {% block content %}
+        Контент не подвезли :(
+      {% endblock %}
+    </main>
+    <footer>
+      {% include 'includes/footer.html' %} 
+    </footer>
+
+    <script>
+      // После загрузки DOM-дерева (страницы)
+      $(function() {     
+        //при нажатии на ссылку, содержащую Thumbnail
+        $('a.thumbnail').click(function(e) {
+          //отменить стандартное действие браузера
+          e.preventDefault();
+          //присвоить атрибуту scr элемента img модального окна
+          //значение атрибута scr изображения, которое обёрнуто
+          //вокруг элемента a, на который нажал пользователь
+          $('#image-modal .modal-body img').attr('src', $(this).find('img').attr('src'));
+          //открыть модальное окно
+          $("#image-modal").modal('show');
+        });
+        //при нажатию на изображение внутри модального окна 
+        //закрыть его (модальное окно)
+        $('#image-modal .modal-body img').on('click', function() {
+          $("#image-modal").modal('hide')
+        });
+      });
+      </script>
+
+  </body>
+</html>
